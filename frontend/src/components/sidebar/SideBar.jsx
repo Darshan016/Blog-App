@@ -8,9 +8,7 @@ export default function SideBar() {
         <img width={200} height={200} src="https://images7.alphacoders.com/129/1299888.png" alt="" />
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas,
-          ipsum ex quibusdam atque totam obcaecati quisquam eveniet saepe
-          laboriosam, eligendi sint molestias officiis culpa quaerat. Veritatis
-          labore exercitationem fugiat. At!
+          ipsum ex quibusdam!
         </p>
       </div>
       <div className="sideBarItem">
