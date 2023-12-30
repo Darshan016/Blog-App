@@ -8,6 +8,7 @@ import Write from "./pages/write/Write";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 function App() {
+  const user = false
   return (
     <Router>
       <TopBar />
@@ -15,16 +16,13 @@ function App() {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route path="/register">
-          <Register />
+        <Route path="/register">{user?<Home/>:<Register/>}
         </Route>
-        <Route path="/login">
-          <Login />
+        <Route path="/login">{user?<Home/>:<Login/>}
         </Route>
-        <Route path="/write">
-          <Write />
+        <Route path="/write"> {user?<Write/>:<Register/>}
         </Route>
-        <Route path="/settings">
+        <Route path="/settings">{user?<Settings/>:<Register/>}
           <Settings />
         </Route>
         <Route path="/post/:postId">
