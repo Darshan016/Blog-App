@@ -6,11 +6,12 @@ const authRoute = require('./routes/AuthRoute')
 const userRoute = require('./routes/UserRoute')
 const postRoute = require('./routes/PostRoute')
 const categoryRoute = require('./routes/CategoryRoute')
+const cors = require('cors')
 
 dotenv.config()
 const app = express()
 app.use(express.json())
-
+app.use(cors())
 app.use('/api/v1/auth', authRoute)
 app.use('/api/v1/users', userRoute)
 app.use('/api/v1/posts', postRoute)
