@@ -1,23 +1,30 @@
 import './post.css'
+import {Link} from 'react-router-dom'
 
-export default function Post() {
+export default function Post({post}) {
   return (
     <div className='post'>
-        <img className='postImg' src="https://www.waifu.com.mx/wp-content/uploads/2023/05/Zero-Two-3.jpg" alt="" />
+        {post.photo &&(
+            <img className='postImg' src="https://www.waifu.com.mx/wp-content/uploads/2023/05/Zero-Two-3.jpg" alt="" />
+        )}
+        
         <div className="postInfo">
             <div className="postCats">
-                <span className="postCat">
-                    Life</span>
-                <span className="postCat">
-                    Music
-                </span>
+                {post.categories.map((c)=>(
+                    <span className="postCat">
+                    {c}</span>
+
+                ))}
+                
             </div>
-            <span className="postTitle">Lorem ipsum dolor sit.</span>
+            <Link to={`/post/${post._id}`} className='link' >
+            <span className="postTitle">{post.title}</span>
+
+            </Link>
             <hr />
-            <span className="postDate">1 hr ago</span>
+            <span className="postDate">{new Date(post.createdAt).toDateString()}</span>
         </div>
-        <p className="postDescription">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, nisi aut ipsum ab molestias eius placeat nemo, aperiam culpa omnis qui velit optio facere adipisci quo nobis sit in laborum?
-        Et omnis quidem rem eos cumque laudantium ex ullam mollitia, perspiciatis, incidunt saepe vel illum ratione eligendi nisi, aspernatur molestias consequatur libero nobis. Saepe dicta facere aliquam atque, sunt maxime!</p>
+        <p className="postDescription">{post.desc}</p>
     </div>
   )
 }
