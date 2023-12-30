@@ -1,7 +1,14 @@
 import "./topbar.css";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Context } from "../../context/Context";
 
 export default function TopBar() {
+  const {user, dispatch} = useContext(Context)
+  const handleLogout = ()=>{
+    dispatch({type:'LOGOUT'})
+  }
+
   return (
     <div className="top">
       <div className="topLeft">
@@ -14,41 +21,52 @@ export default function TopBar() {
         <ul className="topList">
           <li className="topListItem">
             <Link className="link" to="/">
-              Home
+              HOME
             </Link>
           </li>
           <li className="topListItem">
-            {" "}
-            <Link className="link" to="/about">
-              About
-            </Link>
+              ABOUT
+            
           </li>
           <li className="topListItem">
-            {" "}
-            <Link className="link" to="/contact">
-              Contact
-            </Link>
+          
+              CONTACT
+          
           </li>
           <li className="topListItem">
-            {" "}
+           
             <Link className="link" to="/write">
-              Write
+              WRITE
             </Link>
           </li>
-          <li className="topListItem">
-            {" "}
-            <Link className="link" to="/logout">
-              Logout
-            </Link>
-          </li>
+       <li className="topListItem" onClick={handleLogout}>{user && 'LOGOUT'}</li>
         </ul>
       </div>
       <div className="topRight">
-        <img
+        {user?(
+          <Link className='link' to='/settings'>
+
+          <img
           className="topImage"
-          src="https://images7.alphacoders.com/129/1299888.png"
+          src={user.profilePicture}
           alt=""
-        />
+          />
+          </Link>
+        ):(
+          <ul className="topList">
+          <li className="topListItem">
+            <Link className="link" to="/login">
+              LOGIN
+            </Link>
+          </li>
+          <li className="topListItem">
+            <Link className="link" to="/register">
+              REGISTER
+            </Link>
+          </li>
+        </ul>
+        )}
+        
         <i className=" topSearchIcon fa-solid fa-magnifying-glass"></i>
       </div>
     </div>
