@@ -1,23 +1,38 @@
+import { useEffect, useState } from 'react'
 import './singlepost.css'
+import { useLocation } from 'react-router'
+import axios from 'axios'
+import { Link } from "react-router-dom";
 
 export default function SinglePost() {
+  const location = useLocation()
+  const path=location.pathname.split("/")[2]
+  const [post,setPost] = useState({})
+  useEffect(()=>{
+    const getPost = async ()=>{
+      const res = await axios.get('http://localhost:3000/api/v1/posts/'+path)
+      setPost(res.data)
+    }
+    getPost()
+  },[path])
+
   return (
     <div className='singlePost'>
       <div className="singlePostWrapper">
-        <img src="https://www.universetoday.com/wp-content/uploads/2010/02/Full-Moon.jpg" alt="" className="singlePostImg" />
-        <h1 className="singlePostTitle">Lorem ipsum dolor sapiente.
+        {post.photo && (
+           <img src="https://www.universetoday.com/wp-content/uploads/2010/02/Full-Moon.jpg" alt="" className="singlePostImg" />
+        )}
+       
+        <h1 className="singlePostTitle">{post.title}
         <div className="singlePostEdit">
-        <i class="singlePostIcon fa-regular fa-pen-to-square"></i>
-        <i class="singlePostIcon fa-solid fa-trash"></i></div></h1>
+        <i className="singlePostIcon fa-regular fa-pen-to-square"></i>
+        <i className="singlePostIcon fa-solid fa-trash"></i></div></h1>
         <div className="singlePostInfo">
-          <span className="singlePostAuthor">Author: darshan</span>
-          <span className="singlePostDate">Date: 1 hr ago</span>
+          <span className="singlePostAuthor">Author:  <Link to={`/?user=${post.userName}`} className="link">
+              <b> {post.userName}</b></Link></span>
+          <span className="singlePostDate">{new Date(post.createdAt).toDateString()}</span>
         </div>
-        <p className='singlePostDesc'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloremque aspernatur omnis, rerum quod deleniti nobis! Inventore sed voluptatum excepturi dignissimos esse numquam enim, quibusdam voluptates quia? Odit numquam expedita ad?
-        Voluptate praesentium sed vel nemo ab veniam libero magnam tenetur explicabo corporis, ipsa esse! Laudantium fugit, sunt vero aliquid ullam asperiores. Repudiandae magnam adipisci facilis quam minus natus, neque dolore.
-        Rerum cum deserunt esse unde, quam autem, recusandae itaque hic inventore, maxime optio? Voluptas ut laboriosam neque nesciunt modi quia iure temporibus ipsam quibusdam officia? Voluptates quos voluptas ratione ipsum.
-        Sed a ex et deleniti quam placeat dolorum vel iusto vitae, aspernatur tenetur sunt delectus incidunt nostrum! Veniam similique eos voluptatem commodi, tenetur, a sequi consectetur vitae quis expedita eaque.
-        Illo iure hic voluptatum? Quas laboriosam, quam veritatis commodi laborum quisquam ad ab? Qui temporibus vitae nostrum sunt, reiciendis laudantium provident dolore nulla tempora, nihil corporis? Excepturi tempore dicta porro.</p>
+        <p className='singlePostDesc'>{post.desc}</p>
         </div>  
     </div>
   )
