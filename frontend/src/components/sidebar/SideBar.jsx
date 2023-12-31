@@ -19,7 +19,9 @@ export default function SideBar() {
     <div className="sidebar">
       <div className="sideBarItem">
         <span className="sideBarTitle">About Me</span>
-        <img width={200} height={200} src={publicFolder+user.profilePicture}alt="" />
+        {user &&(
+          <img width={200} height={200} src={publicFolder+user.profilePicture}alt="" />
+        )}
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas,
           ipsum ex quibusdam!
