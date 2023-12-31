@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./sidebar.css";
 import axios from "axios";
-import { Link } from "react-router-dom/cjs/react-router-dom";
+import { Link } from "react-router-dom";
+import { Context } from "../../context/Context";
 
 export default function SideBar() {
+  const {user} = useContext(Context)
+  const publicFolder = 'http://localhost:3000/images/'
   const [cats,setCats] = useState([])
   useEffect(()=>{
     const getCats = async()=>{
@@ -16,7 +19,7 @@ export default function SideBar() {
     <div className="sidebar">
       <div className="sideBarItem">
         <span className="sideBarTitle">About Me</span>
-        <img width={200} height={200} src="https://images7.alphacoders.com/129/1299888.png" alt="" />
+        <img width={200} height={200} src={publicFolder+user.profilePicture}alt="" />
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas,
           ipsum ex quibusdam!
